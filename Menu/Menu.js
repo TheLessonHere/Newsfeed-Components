@@ -23,9 +23,18 @@ function menuCreator (array) {
     menuList.appendChild(menuItem);
   });
 
+  menuContainer.style.display = "none";
+
   const menuButton = document.querySelector('.menu-button');
   menuButton.addEventListener('click', () => {
-    menuContainer.classList.toggle('menu--open');
+    // menuContainer.classList.toggle('menu--open');
+    if (menuContainer.style.display === "none") {
+    menuContainer.style.display = "block";
+    TweenMax.to(menuContainer, 0.25, {opacity: 1});
+    } else {
+      TweenMax.to(menuContainer, 0.25, {opacity: 0});
+      menuContainer.style.display = "none";
+    };
   });
 
   return menuContainer

@@ -116,6 +116,7 @@ function articleCreator (title, date, firstParagraph, secondParagraph, thirdPara
   articleContainer.classList.add('article');
   articleDate.classList.add('date');
   expandButton.classList.add('expandButton');
+  articleContainer.style.height = "50px";
 
   articleHeader.textContent = title;
   articleDate.textContent = date;
@@ -132,7 +133,12 @@ function articleCreator (title, date, firstParagraph, secondParagraph, thirdPara
   articleContainer.appendChild(expandButton);
 
   expandButton.addEventListener('click', () => {
-    articleContainer.classList.toggle('article-open');
+    // articleContainer.classList.toggle('article-open');
+    if (articleContainer.style.height === "50px") {
+    TweenMax.to(articleContainer, 0.25, {height: 400});
+    } else {
+      TweenMax.to(articleContainer, 0.25, {height:50});
+    };
   });
 
   return articleContainer
