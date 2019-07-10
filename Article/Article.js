@@ -85,8 +85,64 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'New Test Article',
+    date: 'Jan 1st, 2019',
+    firstParagraph: `Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang. 
+          Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang. 
+          Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang.`,
+
+    secondParagraph: `Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang.
+          Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang.
+          Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang.`,
+
+    thirdParagraph: `Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang.
+          Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang.
+          Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang. Gucci Gang, Gucci Gang, Gucci Gang.`
   }
 ];
+
+function articleCreator (title, date, firstParagraph, secondParagraph, thirdParagraph) {
+
+  const articleContainer = document.createElement('div');
+  const articleHeader = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const textContentOne = document.createElement('p');
+  const textContentTwo = document.createElement('p');
+  const textContentThree = document.createElement('p');
+  const expandButton = document.createElement('span');
+
+  articleContainer.classList.add('article');
+  articleDate.classList.add('date');
+  expandButton.classList.add('expandButton');
+  articleContainer.style.height = "50px";
+
+  articleHeader.textContent = title;
+  articleDate.textContent = date;
+  textContentOne.textContent = firstParagraph;
+  textContentTwo.textContent = secondParagraph;
+  textContentThree.textContent = thirdParagraph;
+  expandButton.textContent = 'Expand';
+
+  articleContainer.appendChild(articleHeader);
+  articleContainer.appendChild(articleDate);
+  articleContainer.appendChild(textContentOne);
+  articleContainer.appendChild(textContentTwo);
+  articleContainer.appendChild(textContentThree);
+  articleContainer.appendChild(expandButton);
+
+  expandButton.addEventListener('click', () => {
+    // articleContainer.classList.toggle('article-open');
+    if (articleContainer.style.height === "50px") {
+    TweenMax.to(articleContainer, 0.25, {height: 400});
+    } else {
+      TweenMax.to(articleContainer, 0.25, {height:50});
+    };
+  });
+
+  return articleContainer
+}
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
@@ -112,3 +168,15 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new artible
 
 */
+
+const articlesDiv = document.querySelector('.articles');
+
+let siteArticles = data.map ((articleObject) => {
+  let newArticle = articleCreator(articleObject.title, articleObject.date, articleObject.firstParagraph, articleObject.secondParagraph, articleObject.thirdParagraph);
+
+  return newArticle;
+});
+
+siteArticles.forEach(article => {
+  articlesDiv.appendChild(article);
+});
